@@ -34,11 +34,11 @@ public class HbaseController {
 //        return   hBaseService.createTable(text);
 //    }
 //
-    @GetMapping("search")
+    @GetMapping("test")
     public  Object createTable(){
         List<Put> puts = new ArrayList<>();
         long start = System.currentTimeMillis();
-         for (int i=0;i<=100000;i++){
+         for (int i=0;i<=1000;i++){
              System.out.println(i);
              Put  put = new Put(Bytes.toBytes("q"+i)) ;
              put.addColumn(Bytes.toBytes("question"),Bytes.toBytes("id"),Bytes.toBytes("lijianlei"));
@@ -50,7 +50,7 @@ public class HbaseController {
          return  "耗时："+(System.currentTimeMillis()-start)/1000 +"s";
     }
 
-    @GetMapping("search1")
+    @GetMapping("test")
     public  Object tst(){
         long start = System.currentTimeMillis();
         Object o = hBaseTemplate.scanStartAndStopRow("question","1","q9");
