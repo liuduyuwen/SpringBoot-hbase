@@ -1,6 +1,7 @@
 package com.hbase.springBoothbase.controller;
 
 import com.hbase.springBoothbase.habse.HBaseTemplate;
+import org.apache.hadoop.hbase.TableName;
 import org.apache.hadoop.hbase.client.Put;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,16 +42,32 @@ public class HbaseController {
              puts.add(put);
          }
          hBaseTemplate.putRowData("question",puts);
+        System.out.println("耗时："+(System.currentTimeMillis()-start)/1000 +"s");
          return  "耗时："+(System.currentTimeMillis()-start)/1000 +"s";
     }
 
-    @GetMapping("test")
+    @GetMapping("test1")
     public  Object tst(){
         long start = System.currentTimeMillis();
         Object o = hBaseTemplate.scanStartAndStopRow("question","1","q9");
         System.out.println("耗时："+(System.currentTimeMillis()-start)/1000 +"s");
         return o  ;
-
+    }
+    @GetMapping("create")
+    public  String create(){
+        long start = System.currentTimeMillis();
+          hBaseTemplate.createTable("question","question","question_info");
+        return "----------------"  ;
     }
 
+    @GetMapping("listTable")
+    public  String listTable(){
+        long start = System.currentTimeMillis();
+        List<TableName> tableNames = hBaseTemplate.listTableByDefault();
+        tableNames.forEach(tableName -> {
+            System.out.println("---------"+Bytes.toString(tableName.getName()));
+        });
+        return  "biao";
+    }
 }
+
