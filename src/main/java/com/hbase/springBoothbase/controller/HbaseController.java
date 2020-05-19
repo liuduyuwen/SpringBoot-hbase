@@ -39,6 +39,7 @@ public class HbaseController {
         List<Put> puts = new ArrayList<>();
         long start = System.currentTimeMillis();
          for (int i=0;i<=1000;i++){
+
              System.out.println(i);
              Put  put = new Put(Bytes.toBytes("q"+i)) ;
              put.addColumn(Bytes.toBytes("question"),Bytes.toBytes("id"),Bytes.toBytes("lijianlei"));
